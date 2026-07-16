@@ -12,6 +12,8 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import Logo from "./Logo";
+import { useCart } from "@/context/CartContext";
+import CartModal from "./CartModal";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -37,7 +39,14 @@ const Navbar = () => {
       href: "/products",
     },
   ];
+const [openCart, setOpenCart] = useState(false);
 
+const { cartItems } = useCart();
+
+const totalItems = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+);
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-lg dark:border-gray-800 dark:bg-black/70">
 
@@ -80,18 +89,16 @@ const Navbar = () => {
 
           {/* Cart */}
 
-          <Link
-            href="/cart"
-            className="relative rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <FaShoppingCart size={20} />
+          <button
+    onClick={() => setOpenCart(true)}
+    className="relative rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-gray-800"
+>
+    <FaShoppingCart size={20} />
 
-            {/* Cart Badge */}
-
-            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FBBF24] text-xs font-bold text-black">
-              2
-            </span>
-          </Link>
+    <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FBBF24] text-xs font-bold text-black">
+        {totalItems}
+    </span>
+</button>
 
           {/* Theme Toggle */}
 
@@ -110,12 +117,52 @@ const Navbar = () => {
 
         {/* Mobile Button */}
 
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-2xl md:hidden"
-        >
-          {open ? <FaTimes /> : <FaBars />}
-        </button>
+        {/* Mobile Navbar Actions */}
+
+<div className="flex items-center gap-3 md:hidden">
+
+  {/* Menu */}
+
+  <button
+    onClick={() => setOpen(!open)}
+    className="rounded-lg p-2 transition hover:bg-gray-100"
+  >
+    {open ? (
+      <FaTimes size={20} />
+    ) : (
+      <FaBars size={20} />
+    )}
+  </button>
+
+
+  {/* Theme */}
+
+  <button
+    onClick={() => setDarkMode(!darkMode)}
+    className="rounded-lg p-2 transition hover:bg-gray-100 dark:hover:bg-gray-800"
+  >
+    {darkMode ? (
+      <FaSun size={18} />
+    ) : (
+      <FaMoon size={18} />
+    )}
+  </button>
+
+
+  {/* Cart */}
+
+  <button
+    onClick={() => setOpenCart(true)}
+    className="relative rounded-lg p-2 transition hover:bg-gray-100 dark:hover:bg-gray-800"
+  >
+    <FaShoppingCart size={18} />
+
+    <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FBBF24] text-xs font-bold text-black">
+      {totalItems}
+    </span>
+  </button>
+
+</div>
 
       </div>
 
@@ -145,27 +192,16 @@ const Navbar = () => {
 
           {/* Cart */}
 
-          <Link
-            href="/cart"
-            onClick={() => setOpen(false)}
-            className="block text-lg font-medium text-gray-700 dark:text-gray-300"
-          >
-            Cart
-          </Link>
-
-          {/* Theme */}
-
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="text-lg font-medium"
-          >
-            {darkMode ? "Light Mode" : "Dark Mode"}
-          </button>
-
+        
         </div>
+        
       </div>
-
+<CartModal
+    open={openCart}
+    setOpen={setOpenCart}
+/>
     </nav>
+    
   );
 };
 

@@ -2,6 +2,7 @@ import products from "@/data/products.json";
 import Image from "next/image";
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { notFound } from "next/navigation";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const ProductDetails = async ({ params }) => {
   const { id } = await params;
@@ -226,13 +227,9 @@ const ProductDetails = async ({ params }) => {
                 Buy Now
               </button>
 
-              <button className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-[#14532D] py-4 font-semibold text-[#14532D] transition hover:bg-[#14532D] hover:text-white">
-
-                <FaShoppingCart />
-
-                Add To Cart
-
-              </button>
+             
+<AddToCartButton product={product} />
+               
 
             </div>
 

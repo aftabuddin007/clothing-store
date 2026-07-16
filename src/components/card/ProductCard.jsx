@@ -1,10 +1,12 @@
 "use client";
 
+import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
+   const { addToCart } = useCart();
   const {
     id,
     name,
@@ -102,6 +104,7 @@ const ProductCard = ({ product }) => {
           </Link>
 
           <button
+           onClick={() => addToCart(product)}
             disabled={!inStock}
             className={`rounded-full p-4 shadow-sm transition duration-300 ${
               inStock
