@@ -65,7 +65,7 @@ const CartModal = ({ open, setOpen }) => {
         {/* Empty State */}
 
         {cartItems.length === 0 ? (
-          <div className="flex flex-1 items-center justify-center">
+          <div className="flex flex-1 items-center justify-center text-gray-700">
 
             <div className="text-center">
 
@@ -73,7 +73,7 @@ const CartModal = ({ open, setOpen }) => {
                 Your Cart is Empty
               </h2>
 
-              <p className="mt-2 text-gray-500">
+              <p className="mt-2 ">
                 Add some amazing products.
               </p>
 
@@ -122,7 +122,7 @@ const CartModal = ({ open, setOpen }) => {
                               {item.name}
                             </h3>
 
-                            <h3 className="text-lg font-bold">
+                            <h3 className="text-lg font-bold text-gray-700">
                               ৳ {item.price}
                             </h3>
 
@@ -152,13 +152,13 @@ const CartModal = ({ open, setOpen }) => {
 
                           {/* Quantity */}
 
-                          <div className="flex items-center overflow-hidden rounded-lg border">
+                          <div className="flex items-center overflow-hidden rounded-lg border text-gray-700">
 
                             <button
                               onClick={() =>
                                 decreaseQuantity(item.id)
                               }
-                              className="border-r p-3 hover:bg-gray-100"
+                              className="border-r p-3 hover:bg-gray-100 "
                             >
                               <FaMinus size={12} />
                             </button>
@@ -218,7 +218,7 @@ const CartModal = ({ open, setOpen }) => {
 
               <div className="mt-5 flex items-center justify-between border-t pt-5">
 
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-2xl font-bold text-gray-700">
                   Total
                 </h2>
 

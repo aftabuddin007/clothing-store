@@ -14,20 +14,27 @@ import {
 import Logo from "./Logo";
 import { useCart } from "@/context/CartContext";
 import CartModal from "./CartModal";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const pathname = usePathname();
 
-  const [darkMode, setDarkMode] = useState(false);
-  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+const [open, setOpen] = useState(false);
+
+const { theme, setTheme } = useTheme();
+// const [darkMode, setDarkMode] = useState(false);
+
+//   // theme useEffect
+//  useEffect(() => {
+//   if (darkMode) {
+//     document.documentElement.classList.add("dark");
+//     localStorage.setItem("theme", "dark");
+//   } else {
+//     document.documentElement.classList.remove("dark");
+//     localStorage.setItem("theme", "light");
+//   }
+// }, [darkMode]);
 
   const navLinks = [
     {
@@ -47,6 +54,11 @@ const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
 );
+
+
+
+
+
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-lg dark:border-gray-800 dark:bg-black/70">
 
@@ -101,18 +113,13 @@ const totalItems = cartItems.reduce(
 </button>
 
           {/* Theme Toggle */}
-
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            {darkMode ? (
-              <FaSun size={18} />
-            ) : (
-              <FaMoon size={18} />
-            )}
-          </button>
-
+<button
+    onClick={() =>
+        setTheme(theme === "dark" ? "light" : "dark")
+    }
+>
+    {theme === "dark" ? <FaSun /> : <FaMoon />}
+</button>
         </div>
 
         {/* Mobile Button */}
@@ -124,29 +131,23 @@ const totalItems = cartItems.reduce(
   {/* Menu */}
 
   <button
-    onClick={() => setOpen(!open)}
-    className="rounded-lg p-2 transition hover:bg-gray-100"
-  >
-    {open ? (
-      <FaTimes size={20} />
-    ) : (
-      <FaBars size={20} />
-    )}
-  </button>
+    onClick={() =>
+        setTheme(theme === "dark" ? "light" : "dark")
+    }
+>
+    {theme === "dark" ? <FaSun /> : <FaMoon />}
+</button>
 
 
   {/* Theme */}
 
-  <button
-    onClick={() => setDarkMode(!darkMode)}
-    className="rounded-lg p-2 transition hover:bg-gray-100 dark:hover:bg-gray-800"
-  >
-    {darkMode ? (
-      <FaSun size={18} />
-    ) : (
-      <FaMoon size={18} />
-    )}
-  </button>
+ <button
+    onClick={() =>
+        setTheme(theme === "dark" ? "light" : "dark")
+    }
+>
+    {theme === "dark" ? <FaSun /> : <FaMoon />}
+</button>
 
 
   {/* Cart */}

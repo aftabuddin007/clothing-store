@@ -76,12 +76,12 @@ const ProductCard = ({ product }) => {
 
         {/* Rating */}
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center font-bold gap-2">
 
           <FaStar className="text-[#FBBF24]" />
 
-          <span className="text-sm font-medium text-gray-600">
-            {rating} / 5
+          <span className="text-sm  font-bold  text-gray-600">
+            {rating} / 5 (123 review)
           </span>
 
         </div>
