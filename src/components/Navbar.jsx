@@ -5,14 +5,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
-  FaHome,
-  FaShoppingBag,
   FaShoppingCart,
   FaMoon,
   FaSun,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -20,7 +19,6 @@ const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [open, setOpen] = useState(false);
 
-  // Dark Mode
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -33,120 +31,140 @@ const Navbar = () => {
     {
       name: "Home",
       href: "/",
-      icon: <FaHome />,
     },
     {
       name: "Products",
       href: "/products",
-      icon: <FaShoppingBag />,
     },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
-      <div className="max-w-7xl mx-auto h-20 px-5 flex items-center justify-between">
-        {/* Left - Logo */}
-        <Link
+    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-lg dark:border-gray-800 dark:bg-black/70">
+
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5">
+
+        {/* Logo */}
+<Logo></Logo>
+        {/* <Link
           href="/"
-          className="text-3xl font-bold text-indigo-600"
+          className="text-3xl font-extrabold tracking-tight text-[#14532D]"
         >
           ShopNest
-        </Link>
+        </Link> */}
 
-        {/* Middle - Nav Links */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Links */}
+
+        <div className="hidden items-center gap-10 md:flex">
           {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-2 text-lg font-medium transition duration-300 ${
+              className={`relative text-base font-medium transition-all duration-300 ${
                 pathname === item.href
-                  ? "text-indigo-600"
-                  : "text-gray-700 dark:text-gray-300 hover:text-indigo-600"
+                  ? "text-[#14532D]"
+                  : "text-gray-700 hover:text-[#14532D] dark:text-gray-300"
               }`}
             >
-              {item.icon}
               {item.name}
+
+              {pathname === item.href && (
+                <span className="absolute -bottom-2 left-0 h-[3px] w-full rounded-full bg-[#FBBF24]" />
+              )}
             </Link>
           ))}
         </div>
 
-        {/* Right - Cart & Theme */}
-        <div className="hidden md:flex items-center gap-5">
+        {/* Right Section */}
+
+        <div className="hidden items-center gap-4 md:flex">
+
+          {/* Cart */}
+
           <Link
             href="/cart"
-            className={`flex items-center gap-2 text-lg font-medium transition duration-300 ${
-              pathname === "/cart"
-                ? "text-indigo-600"
-                : "text-gray-700 dark:text-gray-300 hover:text-indigo-600"
-            }`}
+            className="relative rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <FaShoppingCart />
-            Cart
+            <FaShoppingCart size={20} />
+
+            {/* Cart Badge */}
+
+            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FBBF24] text-xs font-bold text-black">
+              2
+            </span>
           </Link>
+
+          {/* Theme Toggle */}
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+            className="rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             {darkMode ? (
-              <FaSun size={20} />
+              <FaSun size={18} />
             ) : (
-              <FaMoon size={20} />
+              <FaMoon size={18} />
             )}
           </button>
+
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Button */}
+
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-2xl"
+          className="text-2xl md:hidden"
         >
           {open ? <FaTimes /> : <FaBars />}
         </button>
+
       </div>
 
       {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-white dark:bg-gray-900 px-5 pb-5 space-y-4">
+
+      <div
+        className={`overflow-hidden transition-all duration-300 md:hidden ${
+          open ? "max-h-96" : "max-h-0"
+        }`}
+      >
+        <div className="space-y-5 border-t border-gray-200 bg-white px-5 py-6 dark:border-gray-800 dark:bg-black">
+
           {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={`flex items-center gap-3 text-lg ${
+              className={`block text-lg font-medium ${
                 pathname === item.href
-                  ? "text-indigo-600"
+                  ? "text-[#14532D]"
                   : "text-gray-700 dark:text-gray-300"
               }`}
             >
-              {item.icon}
               {item.name}
             </Link>
           ))}
 
+          {/* Cart */}
+
           <Link
             href="/cart"
             onClick={() => setOpen(false)}
-            className={`flex items-center gap-3 text-lg ${
-              pathname === "/cart"
-                ? "text-indigo-600"
-                : "text-gray-700 dark:text-gray-300"
-            }`}
+            className="block text-lg font-medium text-gray-700 dark:text-gray-300"
           >
-            <FaShoppingCart />
             Cart
           </Link>
 
+          {/* Theme */}
+
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="flex items-center gap-3 text-lg"
+            className="text-lg font-medium"
           >
-            {darkMode ? <FaSun /> : <FaMoon />}
             {darkMode ? "Light Mode" : "Dark Mode"}
           </button>
+
         </div>
-      )}
+      </div>
+
     </nav>
   );
 };

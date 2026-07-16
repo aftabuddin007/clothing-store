@@ -8,6 +8,7 @@ import {
   FaGithub,
   FaEnvelope,
 } from "react-icons/fa";
+import Logo from "./Logo";
 
 const Footer = () => {
   return (
@@ -16,9 +17,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Logo */}
         <div>
-          <h2 className="text-3xl font-bold text-white mb-4">
-            ShopNest
-          </h2>
+          <Logo></Logo>
 
           <p className="text-sm leading-7">
             Discover premium products at the best prices. Shop

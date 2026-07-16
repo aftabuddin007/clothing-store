@@ -6,11 +6,11 @@ const Product = () => {
   const featuredProducts = products;
 
   return (
-    <div className="min-h-screen bg-[#FFFBEB] py-10">
+    <div className="min-h-screen  py-10">
 
       <div className="max-w-7xl mx-auto px-4">
 
-        <h2 className="mb-12 text-center text-5xl font-bold text-[#14532D]">
+        <h2 className="mb-12 text-center text-5xl font-bold ">
           Our Products
         </h2>
 

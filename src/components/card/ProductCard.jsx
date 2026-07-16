@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { FaStar, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
+import { FaShoppingCart, FaStar } from "react-icons/fa";
+
 const ProductCard = ({ product }) => {
   const {
     id,
@@ -15,74 +16,97 @@ const ProductCard = ({ product }) => {
   } = product;
 
   return (
-    <div className="group overflow-hidden rounded-2xl border border-[#14532D]/20 bg-[#FFFBEB] shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+    <div className="group overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
 
       {/* Product Image */}
+
       <div className="relative overflow-hidden">
+
         <Image
           src={image}
           alt={name}
           width={500}
           height={500}
-          className="h-72 w-full object-cover transition duration-500 group-hover:scale-110"
+          className="h-80 w-full object-cover transition duration-700 group-hover:scale-110"
         />
 
-        {/* Category */}
-        <span className="absolute left-4 top-4 rounded-full bg-[#14532D] px-3 py-1 text-xs font-semibold text-white">
+        {/* Category Badge */}
+
+        <span className="absolute left-4 top-4 rounded-full bg-white px-4 py-1 text-xs font-semibold text-[#14532D] shadow-md">
           {category}
         </span>
 
-        {/* Stock */}
+        {/* Stock Badge */}
+
         <span
-          className={`absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ${
+          className={`absolute right-4 top-4 rounded-full px-4 py-1 text-xs font-semibold shadow-md ${
             inStock
               ? "bg-[#FBBF24] text-black"
-              : "bg-red-600 text-white"
+              : "bg-red-500 text-white"
           }`}
         >
-          {inStock ? "In Stock" : "Out of Stock"}
+          {inStock ? "Available" : "Sold Out"}
         </span>
+
+        {/* Quick View Overlay */}
+
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition duration-500 group-hover:opacity-100">
+
+          <Link
+            href={`/products/${id}`}
+            className="rounded-full bg-white px-6 py-3 font-semibold text-[#14532D] shadow-lg transition hover:scale-105"
+          >
+            Quick View
+          </Link>
+
+        </div>
       </div>
 
       {/* Product Info */}
-      <div className="p-5">
+
+      <div className="space-y-4 p-6">
 
         {/* Name */}
-        <h2 className="text-xl font-bold text-[#14532D]">
+
+        <h2 className="line-clamp-1 text-xl font-bold text-gray-900">
           {name}
         </h2>
 
         {/* Rating */}
-        <div className="mt-2 flex items-center gap-2">
+
+        <div className="flex items-center gap-2">
+
           <FaStar className="text-[#FBBF24]" />
-          <span className="text-sm font-medium text-gray-700">
-            {rating}
+
+          <span className="text-sm font-medium text-gray-600">
+            {rating} / 5
           </span>
+
         </div>
 
         {/* Price */}
-        <h3 className="mt-3 text-2xl font-bold text-[#14532D]">
+
+        <h3 className="text-3xl font-bold text-[#14532D]">
           ৳ {price}
         </h3>
 
-        {/* Buttons */}
-        <div className="mt-6 flex gap-3">
+        {/* Bottom Section */}
 
-          {/* View Details */}
+        <div className="flex items-center justify-between pt-2">
+
           <Link
             href={`/products/${id}`}
-            className="flex-1 rounded-xl border-2 border-[#14532D] py-2 text-center font-medium text-[#14532D] transition duration-300 hover:bg-[#14532D] hover:text-white"
+            className="font-semibold text-[#14532D] transition hover:text-[#0d3b20]"
           >
-            View Details
+            View Details →
           </Link>
 
-          {/* Cart */}
           <button
             disabled={!inStock}
-            className={`rounded-xl p-3 transition duration-300 ${
+            className={`rounded-full p-4 shadow-sm transition duration-300 ${
               inStock
-                ? "bg-[#FBBF24] text-black hover:brightness-95"
-                : "cursor-not-allowed bg-gray-400 text-white"
+                ? "bg-[#14532D] text-white hover:scale-105 hover:bg-[#0d3b20]"
+                : "cursor-not-allowed bg-gray-300 text-white"
             }`}
           >
             <FaShoppingCart />

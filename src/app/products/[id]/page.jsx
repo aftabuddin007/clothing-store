@@ -1,17 +1,20 @@
-// ""
-
 import products from "@/data/products.json";
 import Image from "next/image";
-import { FaStar, FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { notFound } from "next/navigation";
 
-const ProductDetails =async ({ params }) => {
-   const { id } = await params;
+const ProductDetails = async ({ params }) => {
+  const { id } = await params;
 
+  const product = products.find(
+    (item) => item.id === parseInt(id)
+  );
 
+  if (!product) {
+    return notFound();
+  }
 
   const {
-    
     name,
     category,
     image,
@@ -21,137 +24,222 @@ const ProductDetails =async ({ params }) => {
     sizes,
     inStock,
     description,
-  } = products.find((product) => product.id === parseInt(id)) || {};
+  } = product;
 
   return (
-<>
+    <div className="min-h-screen  py-12 px-4">
 
-<div className="min-h-screen  py-14">
+      <div className="mx-auto max-w-7xl">
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-2">
+        {/* Breadcrumb */}
 
-        {/* Left Side */}
-
-        <div>
-          <Image
-            src={image}
-            alt={name}
-            width={700}
-            height={700}
-            className="rounded-3xl object-cover shadow-xl"
-          />
+        <div className="mb-8 text-sm text-gray-500">
+          Home / Products /{" "}
+          <span className="font-semibold text-[#14532D]">
+            {name}
+          </span>
         </div>
 
-        {/* Right Side */}
+        {/* Main Section */}
 
-        <div className="flex flex-col justify-center">
+        <div className="grid gap-16 lg:grid-cols-2">
 
-          <span className="w-fit rounded-full bg-[#14532D] px-4 py-2 text-sm font-semibold text-white">
-            {category}
-          </span>
+          {/* LEFT SIDE */}
 
-          <h1 className="mt-4 text-5xl font-bold text-[#14532D]">
-            {name}
-          </h1>
+          <div className="rounded-3xl bg-white p-6 shadow-xl">
 
-          {/* Rating */}
+            <Image
+              src={image}
+              alt={name}
+              width={700}
+              height={700}
+              className="h-[650px] w-full rounded-3xl object-cover"
+            />
 
-          <div className="mt-4 flex items-center gap-2">
-            <FaStar className="text-[#FBBF24]" />
-            <span className="text-lg font-medium">
-              {rating}
+          </div>
+
+          {/* RIGHT SIDE */}
+
+          <div className="flex flex-col justify-center">
+
+            {/* Category */}
+
+            <span className="mb-4 w-fit rounded-full bg-[#14532D] px-4 py-2 text-sm font-semibold text-white">
+              {category}
             </span>
-          </div>
 
-          {/* Price */}
+            {/* Title */}
 
-          <h2 className="mt-5 text-4xl font-bold text-[#14532D]">
-            ৳ {price}
-          </h2>
+            <h1 className="text-4xl font-bold text-[#14532D] lg:text-5xl">
+              {name}
+            </h1>
 
-          {/* Description */}
+            {/* Rating */}
 
-          <p className="mt-6 text-lg leading-relaxed text-gray-700">
-            {description}
-          </p>
+            <div className="mt-5 flex items-center gap-2">
 
-          {/* Colors */}
+              <FaStar className="text-yellow-400" />
 
-          <div className="mt-8">
-            <h3 className="mb-3 text-xl font-semibold text-[#14532D]">
-              Available Colors
-            </h3>
+              <span className="font-semibold">
+                {rating}
+              </span>
 
-            <div className="flex gap-3">
-              {colors.map((color, index) => (
-                <span
-                  key={index}
-                  className="rounded-full border border-[#14532D] px-4 py-2"
-                >
-                  {color}
-                </span>
-              ))}
+              <span className="text-gray-500">
+                (128 Reviews)
+              </span>
+
             </div>
-          </div>
 
-          {/* Sizes */}
+            {/* Price */}
 
-          <div className="mt-8">
-            <h3 className="mb-3 text-xl font-semibold text-[#14532D]">
-              Available Sizes
-            </h3>
+            <div className="mt-6">
 
-            <div className="flex gap-3">
-              {sizes.map((size, index) => (
-                <span
-                  key={index}
-                  className="rounded-xl border border-[#14532D] px-4 py-2"
-                >
-                  {size}
-                </span>
-              ))}
+              <h2 className="text-4xl font-bold text-[#14532D]">
+                ৳ {price}
+              </h2>
+
+              <p className="mt-1 text-sm text-green-600">
+                Inclusive of all taxes
+              </p>
+
             </div>
+
+            {/* Description */}
+
+            <p className="mt-8 leading-relaxed text-gray-700">
+              {description}
+            </p>
+
+            {/* Colors */}
+
+            <div className="mt-10">
+
+              <h3 className="mb-4 text-xl font-semibold text-[#14532D]">
+                Available Colors
+              </h3>
+
+              <div className="flex flex-wrap gap-3">
+
+                {colors.map((color, index) => (
+                  <button
+                    key={index}
+                    className="rounded-full border border-[#14532D] px-5 py-2 font-medium transition hover:bg-[#14532D] hover:text-white"
+                  >
+                    {color}
+                  </button>
+                ))}
+
+              </div>
+
+            </div>
+
+            {/* Sizes */}
+
+            <div className="mt-10">
+
+              <h3 className="mb-4 text-xl font-semibold text-[#14532D]">
+                Available Sizes
+              </h3>
+
+              <div className="flex flex-wrap gap-3">
+
+                {sizes.map((size, index) => (
+                  <button
+                    key={index}
+                    className="rounded-xl border border-gray-300 px-5 py-3 font-semibold transition hover:border-[#14532D] hover:text-[#14532D]"
+                  >
+                    {size}
+                  </button>
+                ))}
+
+              </div>
+
+            </div>
+
+            {/* Quantity */}
+
+            <div className="mt-10">
+
+              <h3 className="mb-4 text-xl font-semibold text-[#14532D]">
+                Quantity
+              </h3>
+
+              <div className="flex w-fit items-center gap-6 rounded-xl border  px-6 py-3 shadow-sm">
+
+                <button className="text-xl font-bold">
+                  -
+                </button>
+
+                <span className="font-semibold">
+                  1
+                </span>
+
+                <button className="text-xl font-bold">
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+            {/* Stock */}
+
+            <div className="mt-8">
+
+              <span
+                className={`rounded-full px-5 py-2 font-semibold ${
+                  inStock
+                    ? "bg-green-600 text-white"
+                    : "bg-red-600 text-white"
+                }`}
+              >
+                {inStock
+                  ? "In Stock"
+                  : "Out Of Stock"}
+              </span>
+
+            </div>
+
+            {/* Shipping Information */}
+
+            <div className="mt-10 rounded-2xl bg-white p-6 shadow-md">
+
+              <div className="space-y-3 text-gray-700">
+
+                <p>🚚 Free Delivery Nationwide</p>
+
+                <p>💰 Cash On Delivery Available</p>
+
+                <p>🔄 7 Days Easy Return</p>
+
+                <p>✔ 100% Authentic Product</p>
+
+              </div>
+
+            </div>
+
+            {/* Buttons */}
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+
+              <button className="flex-1 rounded-xl bg-[#14532D] py-4 font-semibold text-white transition hover:brightness-110">
+                Buy Now
+              </button>
+
+              <button className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-[#14532D] py-4 font-semibold text-[#14532D] transition hover:bg-[#14532D] hover:text-white">
+
+                <FaShoppingCart />
+
+                Add To Cart
+
+              </button>
+
+            </div>
+
           </div>
-
-          {/* Stock */}
-
-          <div className="mt-8">
-            <span
-              className={`rounded-full px-5 py-2 font-semibold ${
-                inStock
-                  ? "bg-green-600 text-white"
-                  : "bg-red-600 text-white"
-              }`}
-            >
-              {inStock ? "In Stock" : "Out Of Stock"}
-            </span>
-          </div>
-
-          {/* Buttons */}
-
-          <div className="mt-10 flex gap-4">
-
-            <button className="rounded-xl bg-[#14532D] px-8 py-4 font-semibold text-white transition hover:brightness-110">
-              Buy Now
-            </button>
-
-            <button
-              disabled={!inStock}
-              className="flex items-center gap-2 rounded-xl bg-[#FBBF24] px-8 py-4 font-semibold text-black transition hover:brightness-95"
-            >
-              <FaShoppingCart />
-              Add To Cart
-            </button>
-
-          </div>
-
         </div>
       </div>
     </div>
-
-</>
-
-    
   );
 };
 
