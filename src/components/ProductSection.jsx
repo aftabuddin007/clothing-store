@@ -7,9 +7,9 @@ const ProductSection = () => {
 
   return (
     <div className="">
-    <div className='max-w-7xl mx-auto '>
+    <div className='max-w-7xl mx-auto py-20 '>
       <h2 className="font-bold text-center 
- text-4xl mb-10">Our Products</h2>
+ text-4xl mb-10">Features Products</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {featuredProducts.map(product => (
           <ProductCard product={product} key={product.id} />

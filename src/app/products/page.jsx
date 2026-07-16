@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import products from "@/data/products.json";
 import ProductCard from "@/components/card/ProductCard";
+import Loading from "@/components/Loading";
 
 const Product = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("");
-
+const [loading, setLoading] = useState(true);
   // Remove duplicate categories
   const categories = [
     "All",
@@ -35,9 +36,18 @@ const Product = () => {
   } else if (sortOption === "highToLow") {
     filteredProducts.sort((a, b) => b.price - a.price);
   }
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setLoading(false);
+  }, 2000);
 
+  return () => clearTimeout(timer);
+}, []);
+if(loading){
+  return <Loading></Loading>
+}
   return (
-    <div className="min-h-screen py-10">
+    <div className="min-h-screen py-20">
       <div className="mx-auto max-w-7xl px-4">
 
         {/* Heading */}
@@ -82,7 +92,7 @@ const Product = () => {
               onClick={() =>
                 setSelectedCategory(category)
               }
-              className={`whitespace-nowrap rounded-full border px-6 py-3 font-medium transition-all duration-300 ${
+              className={`whitespace-nowrap rounded-full border px-4 py-3 font-medium transition-all duration-300 ${
                 selectedCategory === category
                   ? "bg-[#14532D] text-white border-[#14532D]"
                   : "bg-white text-gray-700 border-gray-300 hover:border-[#14532D] hover:text-[#14532D]"
