@@ -85,7 +85,7 @@ export const CartProvider = ({ children }) => {
         setCartItems((prevItems) =>
             prevItems.filter((item) => item.id !== id)
         );
-toast.error("Product Remove Successfully")
+toast.error("Product Remove To Cart")
     };
 
     // Clear Cart
