@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 import { useCart } from "@/context/CartContext";
+import toast from "react-hot-toast";
 
 const CartModal = ({ open, setOpen }) => {
   const {
@@ -143,8 +144,9 @@ const CartModal = ({ open, setOpen }) => {
                           <button
                             onClick={() =>
                               removeItem(item.id)
+                          
                             }
-                            className="flex items-center gap-2 text-sm text-gray-500 transition hover:text-red-500"
+                            className="flex items-center gap-2 text-sm text-gray-500 transition cursor-pointer hover:text-red-500"
                           >
                             <FaTrashAlt />
                             Remove

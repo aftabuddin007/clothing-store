@@ -1,120 +1,130 @@
 "use client";
 
+import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
-import { FaShoppingCart, FaStar } from "react-icons/fa";
+import { FaShoppingCart, FaStar, FaHeart, FaRegHeart } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
-   const { addToCart } = useCart();
-  const {
-    id,
-    name,
-    category,
-    image,
-    price,
-    rating,
-    inStock,
-  } = product;
+  const { addToCart } = useCart();
+  const [wishlisted, setWishlisted] = useState(false);
+  const [addedFeedback, setAddedFeedback] = useState(false);
+
+  const { id, name, category, image, price, rating, reviewCount = 124, inStock } = product;
+
+  const handleAddToCart = () => {
+    if (!inStock) return;
+    addToCart(product);
+    setAddedFeedback(true);
+    setTimeout(() => setAddedFeedback(false), 1500);
+  };
 
   return (
-    <div className="group overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+    <div className="group relative flex flex-col overflow-hidden rounded-sm border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
 
-      {/* Product Image */}
-
-      <div className="relative overflow-hidden">
-
+      {/* ── Image area ── */}
+      <div className="relative overflow-hidden bg-gray-50">
         <Image
           src={image}
           alt={name}
           width={500}
           height={500}
-          className="h-80 w-full object-cover transition duration-700 group-hover:scale-110"
+          className={`h-72 w-full object-cover transition duration-700 group-hover:scale-105 ${
+            !inStock ? "opacity-60 grayscale" : ""
+          }`}
         />
 
-        {/* Category Badge */}
-
-        <span className="absolute left-4 top-4 rounded-full bg-white px-4 py-1 text-xs font-semibold text-[#14532D] shadow-md">
+        {/* Category badge — top left */}
+        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#14532D] backdrop-blur-sm shadow-sm">
           {category}
         </span>
 
-        {/* Stock Badge */}
-
+        {/* Stock badge — top right */}
         <span
-          className={`absolute right-4 top-4 rounded-full px-4 py-1 text-xs font-semibold shadow-md ${
+          className={`absolute right-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide shadow-sm ${
             inStock
-              ? "bg-[#FBBF24] text-black"
-              : "bg-red-500 text-white"
+              ? "bg-[#FBBF24] text-[#78350F]"
+              : "bg-gray-800 text-white"
           }`}
         >
-          {inStock ? "Available" : "Sold Out"}
+          {inStock ? "In Stock" : "Sold Out"}
         </span>
 
-        {/* Quick View Overlay */}
+        {/* Wishlist button — fades in on hover */}
+        <button
+          onClick={() => setWishlisted((w) => !w)}
+          aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
+          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md opacity-0 transition-all duration-300 group-hover:opacity-100 hover:scale-110"
+        >
+          {wishlisted ? (
+            <FaHeart className="text-red-500 text-sm" />
+          ) : (
+            <FaRegHeart className="text-gray-400 text-sm" />
+          )}
+        </button>
 
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition duration-500 group-hover:opacity-100">
-
+        {/* Quick view overlay */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-400 group-hover:opacity-100">
           <Link
             href={`/products/${id}`}
-            className="rounded-full bg-white px-6 py-3 font-semibold text-[#14532D] shadow-lg transition hover:scale-105"
+            className="translate-y-2 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#14532D] shadow-lg transition-all duration-300 group-hover:translate-y-0 hover:bg-[#14532D] hover:text-white"
           >
             Quick View
           </Link>
-
         </div>
       </div>
 
-      {/* Product Info */}
-
-      <div className="space-y-4 p-6">
+      {/* ── Product info ── */}
+      <div className="flex flex-1 flex-col gap-3 p-5">
 
         {/* Name */}
-
-        <h2 className="line-clamp-1 text-xl font-bold text-gray-900">
+        <h2 className="line-clamp-1 text-base font-semibold text-gray-900 leading-snug">
           {name}
         </h2>
 
         {/* Rating */}
-
-        <div className="flex items-center font-bold gap-2">
-
-          <FaStar className="text-[#FBBF24]" />
-
-          <span className="text-sm  font-bold  text-gray-600">
-            {rating} / 5 (124 review)
-          </span>
-
+        <div className="flex items-center gap-1.5">
+          <FaStar className="text-[#FBBF24] text-xs" />
+          <span className="text-sm font-semibold text-gray-800">{rating}</span>
+          <span className="text-sm text-gray-400">/ 5</span>
+          <span className="text-xs text-gray-400">({reviewCount} reviews)</span>
         </div>
 
         {/* Price */}
+        <p className="text-2xl font-bold text-[#14532D] tracking-tight">
+          ৳{price.toLocaleString()}
+        </p>
 
-        <h3 className="text-3xl font-bold text-[#14532D]">
-          ৳ {price}
-        </h3>
+        {/* Divider */}
+        <div className="border-t border-gray-100" />
 
-        {/* Bottom Section */}
-
-        <div className="flex items-center justify-between pt-2">
-
+        {/* Actions */}
+        <div className="flex items-center justify-between">
           <Link
             href={`/products/${id}`}
-            className="font-semibold text-[#14532D] transition cursor-pointer hover:text-[#0d3b20]"
+            className="text-sm font-medium text-[#14532D] underline-offset-2 transition hover:underline hover:text-[#0d3b20]"
           >
             View Details →
           </Link>
 
-          <button
-           onClick={() => addToCart(product)}
-            disabled={!inStock}
-            className={`rounded-full p-4 shadow-sm cursor-pointer transition duration-300 ${
-              inStock
-                ? "bg-[#14532D] text-white hover:scale-105 hover:bg-[#0d3b20]"
-                : "cursor-not-allowed bg-gray-300 text-white"
-            }`}
-          >
-            <FaShoppingCart />
-          </button>
-
+          {inStock ? (
+            <button
+              onClick={handleAddToCart}
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition-all duration-300 cursor-pointer ${
+                addedFeedback
+                  ? "bg-green-600 text-white scale-95"
+                  : "bg-[#14532D] text-white hover:bg-[#0d3b20] hover:scale-105"
+              }`}
+            >
+              <FaShoppingCart className="text-xs" />
+              {addedFeedback ? "Added!" : "Add to Cart"}
+            </button>
+          ) : (
+            <span className="rounded-full border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 cursor-not-allowed">
+              Sold Out
+            </span>
+          )}
         </div>
       </div>
     </div>

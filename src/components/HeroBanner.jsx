@@ -34,7 +34,7 @@ export default function HeroBanner() {
         className="absolute inset-0 w-full h-full"
       >
         <Image
-          src="https://images.pexels.com/photos/14768019/pexels-photo-14768019.jpeg"
+          src="https://images.pexels.com/photos/264726/pexels-photo-264726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           alt="Aram Fashion Editorial Campaign"
           fill
           priority

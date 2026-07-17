@@ -1,4 +1,5 @@
 import HeroBanner from "@/components/HeroBanner";
+import Newsletter from "@/components/NewsLetter";
 import ProductSection from "@/components/ProductSection";
 import Testimonials from "@/components/Testmonial";
 import WhyChooseUs from "@/components/WhyChoose";
@@ -12,6 +13,7 @@ export default function Home() {
     <ProductSection></ProductSection>
     <WhyChooseUs></WhyChooseUs>
     <Testimonials></Testimonials>
+    <Newsletter></Newsletter>
     </div>
   );
 }
