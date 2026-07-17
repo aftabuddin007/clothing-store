@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 export default function Loading() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-[#FAFAFA] z-50">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full  z-50">
       
-      {/* Pulsing Brand Name */}
+    
       <motion.h1
         animate={{ 
           opacity: [0.3, 1, 0.3],
