@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# aram fashion — Editorial E-Commerce Core
 
-## Getting Started
+A minimalist, high-end fashion e-commerce frontend interface engineered for a premium digital boutique experience. This platform prioritizes structural symmetry, sophisticated monochrome visual hierarchies, and flawless micro-interactions.
 
-First, run the development server:
+Live Preview: **[aram-fashion.vercel.app](https://clothing-store-six-eta.vercel.app/)**
 
+---
+
+## 📸 Visual Previews
+
+### Lookbook Workspace & Catalog Grid
+![Catalog Grid View](https://i.ibb.co.com/Qj1BY8gK/Screenshot-2026-07-18-000015.png)
+
+### Curated Product Architecture & Context
+![Product Detail View](https://i.ibb.co.com/xK5zHnCb/Screenshot-2026-07-18-000036.png)
+
+---
+
+## ✨ Architectural Features
+
+*   **Lookbook Product Grid:** Features strict $3:4$ aspect ratio asset blocks mimicking legacy luxury print catalogs. Includes a sliding inline Quick View utility panel and an instant state-reactive wishlist toggle interface.
+*   **Dynamic Product Discovery Workspaces:** Implements advanced asynchronous routing (`/products/[id]`) highlighting clean size-selection matrixes, multi-tonal colorway layouts, and responsive media layout modules.
+*   **The Shopping Bag Drawer:** A slide-out checkout hub removing clutter in favor of smooth slide transitions. Features immediate live price scaling, regional tax and logistics estimators, and inline inventory modifiers.
+*   **Agnostic Design System:** Stripped of aggressive marketplace highlights and styled strictly with an architectural neutral palette (`#neutral-950`, slate-less grays) to keep emphasis centered entirely on item visuals.
+
+---
+
+## 🛠️ Tech Stack & Engineering Pipeline
+
+| Layer | Technology | Utility |
+| :--- | :--- | :--- |
+| **Framework** | Next.js 14+ (App Router) | Server-Side Rendering (SSR), optimized dynamic route hydration. |
+| **UI Core** | React 18 | Declarative state control and component compartmentalization. |
+| **Styling** | Tailwind CSS | Utility-first compilation, strict fluid typography, responsive layout engines. |
+| **State Layer** | Context API | Light, performant multi-component cart data synchronization. |
+| **Notifications**| React Hot Toast | Asynchronous user behavioral toast confirmations. |
+
+---
+
+## 🚀 Local Installation & Deployment Guide
+
+To audit or extend this codebase locally, configure your machine environment and execute the commands below:
+
+### 1. Clone the Source Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone [https://github.com/aftabuddin007/clothing-store.git](https://github.com/aftabuddin007/clothing-store.git)
+cd clothing-store
