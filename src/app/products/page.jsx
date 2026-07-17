@@ -92,7 +92,7 @@ if(loading){
               onClick={() =>
                 setSelectedCategory(category)
               }
-              className={`whitespace-nowrap rounded-full border px-4 py-3 font-medium transition-all duration-300 ${
+              className={`whitespace-nowrap rounded-full border cursor-pointer px-4 py-3 font-medium transition-all duration-300 ${
                 selectedCategory === category
                   ? "bg-[#14532D] text-white border-[#14532D]"
                   : "bg-white text-gray-700 border-gray-300 hover:border-[#14532D] hover:text-[#14532D]"

@@ -158,7 +158,7 @@ const CartModal = ({ open, setOpen }) => {
                               onClick={() =>
                                 decreaseQuantity(item.id)
                               }
-                              className="border-r p-3 hover:bg-gray-100 "
+                              className="border-r p-3 hover:bg-gray-100 cursor-pointer "
                             >
                               <FaMinus size={12} />
                             </button>
@@ -171,7 +171,7 @@ const CartModal = ({ open, setOpen }) => {
                               onClick={() =>
                                 increaseQuantity(item.id)
                               }
-                              className="border-l p-3 hover:bg-gray-100"
+                              className="border-l p-3 hover:bg-gray-100 cursor-pointer"
                             >
                               <FaPlus size={12} />
                             </button>
@@ -231,7 +231,7 @@ const CartModal = ({ open, setOpen }) => {
               {/* Checkout */}
 
               <button
-                className="mt-6 w-full rounded-xl bg-[#14532D] py-4 font-semibold text-white transition hover:brightness-110"
+                className="mt-6 w-full rounded-xl cursor-pointer bg-[#14532D] py-4 font-semibold text-white transition hover:brightness-110"
               >
                 Proceed to Checkout
               </button>

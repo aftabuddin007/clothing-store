@@ -10,7 +10,7 @@ const AddToCartButton = ({ product }) => {
     return (
         <button
             onClick={() => addToCart(product)}
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-[#14532D] py-4 font-semibold text-[#14532D]"
+            className="flex flex-1 items-center justify-center gap-2 cursor-pointer rounded-xl border-2 border-[#14532D] py-4 font-semibold text-[#14532D]"
         >
             <FaShoppingCart />
 

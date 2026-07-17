@@ -130,13 +130,16 @@ const totalItems = cartItems.reduce(
 
   {/* Menu */}
 
-  <button
-    onClick={() =>
-        setTheme(theme === "dark" ? "light" : "dark")
-    }
->
-    {theme === "dark" ? <FaSun /> : <FaMoon />}
-</button>
+ <button
+    onClick={() => setOpen(!open)}
+    className="rounded-lg p-2 transition hover:bg-gray-100"
+  >
+    {open ? (
+      <FaTimes size={20} />
+    ) : (
+      <FaBars size={20} />
+    )}
+  </button>
 
 
   {/* Theme */}

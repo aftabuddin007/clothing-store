@@ -81,7 +81,7 @@ const ProductCard = ({ product }) => {
           <FaStar className="text-[#FBBF24]" />
 
           <span className="text-sm  font-bold  text-gray-600">
-            {rating} / 5 (123 review)
+            {rating} / 5 (124 review)
           </span>
 
         </div>
@@ -98,7 +98,7 @@ const ProductCard = ({ product }) => {
 
           <Link
             href={`/products/${id}`}
-            className="font-semibold text-[#14532D] transition hover:text-[#0d3b20]"
+            className="font-semibold text-[#14532D] transition cursor-pointer hover:text-[#0d3b20]"
           >
             View Details →
           </Link>
@@ -106,7 +106,7 @@ const ProductCard = ({ product }) => {
           <button
            onClick={() => addToCart(product)}
             disabled={!inStock}
-            className={`rounded-full p-4 shadow-sm transition duration-300 ${
+            className={`rounded-full p-4 shadow-sm cursor-pointer transition duration-300 ${
               inStock
                 ? "bg-[#14532D] text-white hover:scale-105 hover:bg-[#0d3b20]"
                 : "cursor-not-allowed bg-gray-300 text-white"
