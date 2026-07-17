@@ -60,9 +60,11 @@ const totalItems = cartItems.reduce(
 
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-lg dark:border-gray-800 dark:bg-black/70">
 
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5">
+    
+    <nav className="sticky top-0 z-50   border-b border-gray-200 bg-white/80 backdrop-blur-lg dark:border-gray-800 dark:bg-black/50">
+
+      <div className="max-w-7xl mx-auto flex h-20  items-center justify-between px-5">
 
         {/* Logo */}
 <Logo></Logo>
@@ -83,7 +85,7 @@ const totalItems = cartItems.reduce(
   className={`relative text-base font-medium transition-all duration-300 ${
     pathname === item.href
       ? "text-[#4ADE80]"
-      : "text-zinc-400 hover:text-[#4ADE80]" 
+      : "text-gray-300 hover:text-[#4ADE80]" 
   }`}
 >
   {item.name}
@@ -206,7 +208,7 @@ const totalItems = cartItems.reduce(
     setOpen={setOpenCart}
 />
     </nav>
-    
+   
   );
 };
 
