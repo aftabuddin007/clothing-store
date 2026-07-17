@@ -4,17 +4,21 @@ import { useCart } from "@/context/CartContext";
 import { FaShoppingCart } from "react-icons/fa";
 
 const AddToCartButton = ({ product }) => {
-
     const { addToCart } = useCart();
 
     return (
         <button
+            disabled={!product.inStock}
             onClick={() => addToCart(product)}
-            className="flex flex-1 items-center justify-center gap-2 cursor-pointer rounded-xl border-2 border-[#14532D] py-4 font-semibold text-[#14532D]"
+            className={`flex flex-1 items-center justify-center gap-2 rounded-xl border-2 py-6 px-3 font-semibold transition-all ${
+                product.inStock
+                    ? "cursor-pointer border-[#14532D] text-[#14532D] hover:bg-[#14532D] hover:text-white"
+                    : "cursor-not-allowed border-zinc-700 text-zinc-500 opacity-50"
+            }`}
         >
             <FaShoppingCart />
 
-            Add To Cart
+            {product.inStock ? "Add To Cart" : "Out Of Stock"}
         </button>
     );
 };

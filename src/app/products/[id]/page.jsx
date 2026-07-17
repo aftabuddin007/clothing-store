@@ -180,7 +180,7 @@ const ProductDetails = async ({ params }) => {
                 Express Checkout
               </button>
               <div className="flex-1">
-                <AddToCartButton product={product} />
+                <AddToCartButton product={product} disabled={!inStock} />
               </div>
             </div>
 

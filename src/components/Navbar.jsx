@@ -77,21 +77,22 @@ const totalItems = cartItems.reduce(
 
         <div className="hidden items-center gap-10 md:flex">
           {navLinks.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`relative text-base font-medium transition-all duration-300 ${
-                pathname === item.href
-                  ? "text-[#14532D]"
-                  : "text-gray-700 hover:text-[#14532D] dark:text-gray-300"
-              }`}
-            >
-              {item.name}
+           <Link
+  key={item.href}
+  href={item.href}
+  className={`relative text-base font-medium transition-all duration-300 ${
+    pathname === item.href
+      ? "text-[#4ADE80]"
+      : "text-zinc-400 hover:text-[#4ADE80]" 
+  }`}
+>
+  {item.name}
 
-              {pathname === item.href && (
-                <span className="absolute -bottom-2 left-0 h-[3px] w-full rounded-full bg-[#FBBF24]" />
-              )}
-            </Link>
+  {pathname === item.href && (
+    <span className="absolute -bottom-1.5 left-0 h-[3px] w-full rounded-full bg-[#FBBF24] shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
+    
+  )}
+</Link>
           ))}
         </div>
 
