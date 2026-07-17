@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
-import { FaShoppingCart, FaStar, FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaStar, FaHeart, FaRegHeart } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -21,111 +21,102 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-sm border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+    <div className="group relative flex flex-col bg-white border border-neutral-100 rounded-none transition-all duration-300 hover:border-neutral-300">
 
-      {/* ── Image area ── */}
-      <div className="relative overflow-hidden bg-gray-50">
-        <Image
-          src={image}
-          alt={name}
-          width={500}
-          height={500}
-          className={`h-72 w-full object-cover transition duration-700 group-hover:scale-105 ${
-            !inStock ? "opacity-60 grayscale" : ""
-          }`}
-        />
+      {/* ── Lookbook Portrait Media Crop Area ── */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-50 rounded-none">
+        <Link href={`/products/${id}`} className="block w-full h-full">
+          <Image
+            src={image}
+            alt={name}
+            width={400}
+            height={533} // Crisp 3:4 portrait optimization
+            className={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-102 ${
+              !inStock ? "opacity-50 grayscale" : ""
+            }`}
+          />
+        </Link>
 
-        {/* Category badge — top left */}
-        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#14532D] backdrop-blur-sm shadow-sm">
+        {/* Minimalist Top-Left Category Tag */}
+        <span className="absolute left-4 top-4 bg-white/90 border border-neutral-200/60 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.15em] text-neutral-800 rounded-none backdrop-blur-xs shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
           {category}
         </span>
 
-        {/* Stock badge — top right */}
-        <span
-          className={`absolute right-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide shadow-sm ${
-            inStock
-              ? "bg-[#FBBF24] text-[#78350F]"
-              : "bg-gray-800 text-white"
-          }`}
-        >
-          {inStock ? "In Stock" : "Sold Out"}
-        </span>
+        {/* Minimalist Absolute Stock Shield */}
+        {!inStock && (
+          <span className="absolute right-4 top-4 bg-neutral-950 text-white px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.15em] rounded-none">
+            Sold Out
+          </span>
+        )}
 
-        {/* Wishlist button — fades in on hover */}
+        {/* Wishlist Toggle Action Pin */}
         <button
           onClick={() => setWishlisted((w) => !w)}
           aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
-          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md opacity-0 transition-all duration-300 group-hover:opacity-100 hover:scale-110"
+          className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center bg-white/90 border border-neutral-200/60 rounded-none text-neutral-400 transition-colors hover:text-neutral-950 cursor-pointer backdrop-blur-xs"
         >
           {wishlisted ? (
-            <FaHeart className="text-red-500 text-sm" />
+            <FaHeart className="text-neutral-950 text-xs" />
           ) : (
-            <FaRegHeart className="text-gray-400 text-sm" />
+            <FaRegHeart className="text-neutral-400 text-xs" />
           )}
         </button>
 
-        {/* Quick view overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-400 group-hover:opacity-100">
+        {/* Lookbook Sliding Quick View Tray */}
+        <div className="absolute inset-x-0 bottom-0 flex translate-y-full items-center justify-center bg-white/90 py-3.5 backdrop-blur-xs transition-transform duration-300 group-hover:translate-y-0 border-t border-neutral-200/50">
           <Link
             href={`/products/${id}`}
-            className="translate-y-2 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#14532D] shadow-lg transition-all duration-300 group-hover:translate-y-0 hover:bg-[#14532D] hover:text-white"
+            className="text-[10px] uppercase tracking-[0.2em] font-semibold text-neutral-900 hover:text-neutral-600 transition-colors"
           >
             Quick View
           </Link>
         </div>
       </div>
 
-      {/* ── Product info ── */}
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      {/* ── Product Meta Details ── */}
+      <div className="flex flex-1 flex-col p-4 bg-white">
 
-        {/* Name */}
-        <h2 className="line-clamp-1 text-base font-semibold text-gray-900 leading-snug">
-          {name}
+        {/* Product Identity */}
+        <h2 className="text-sm font-light tracking-wide text-neutral-800 line-clamp-1 mb-1 transition-colors group-hover:text-black">
+          <Link href={`/products/${id}`}>{name}</Link>
         </h2>
 
-        {/* Rating */}
-        <div className="flex items-center gap-1.5">
-          <FaStar className="text-[#FBBF24] text-xs" />
-          <span className="text-sm font-semibold text-gray-800">{rating}</span>
-          <span className="text-sm text-gray-400">/ 5</span>
-          <span className="text-xs text-gray-400">({reviewCount} reviews)</span>
+        {/* Clean Rating Meta Row */}
+        <div className="flex items-center gap-1.5 mb-2">
+          <FaStar className="text-neutral-950 text-[10px]" />
+          <span className="text-[11px] font-medium text-neutral-800">{rating}</span>
+          <span className="text-[11px] text-neutral-200">|</span>
+          <span className="text-[10px] text-neutral-400 font-light tracking-wide">({reviewCount})</span>
         </div>
 
-        {/* Price */}
-        <p className="text-2xl font-bold text-[#14532D] tracking-tight">
+        {/* Pricing Anchor */}
+        <p className="text-sm font-medium text-neutral-950 tracking-wide mb-4">
           ৳{price.toLocaleString()}
         </p>
 
-        {/* Divider */}
-        <div className="border-t border-gray-100" />
-
-        {/* Actions */}
-        <div className="flex items-center justify-between">
-          <Link
-            href={`/products/${id}`}
-            className="text-sm font-medium text-[#14532D] underline-offset-2 transition hover:underline hover:text-[#0d3b20]"
-          >
-            View Details →
-          </Link>
-
+        
+        <div className="mt-auto pt-2">
           {inStock ? (
             <button
               onClick={handleAddToCart}
-              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition-all duration-300 cursor-pointer ${
+              className={`w-full py-3 text-[10px] font-semibold uppercase tracking-[0.15em] border transition-all duration-300 cursor-pointer rounded-none ${
                 addedFeedback
-                  ? "bg-green-600 text-white scale-95"
-                  : "bg-[#14532D] text-white hover:bg-[#0d3b20] hover:scale-105"
+                  ? "bg-neutral-900 text-white border-neutral-900"
+                  : "bg-white text-neutral-900 border-neutral-200 hover:border-neutral-900 hover:bg-neutral-950 hover:text-white"
               }`}
             >
-              <FaShoppingCart className="text-xs" />
-              {addedFeedback ? "Added!" : "Add to Cart"}
+              {addedFeedback ? "Item Added" : "Add To Cart"}
             </button>
           ) : (
-            <span className="rounded-full border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 cursor-not-allowed">
-              Sold Out
-            </span>
+            <button
+              disabled
+              className="w-full py-3 text-[10px] font-semibold uppercase tracking-[0.15em] border border-neutral-100 bg-neutral-50 text-neutral-400 cursor-not-allowed rounded-none text-center"
+            >
+              Out of Stock
+            </button>
           )}
         </div>
+
       </div>
     </div>
   );
